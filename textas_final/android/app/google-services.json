@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "335340138752",
+    "project_id": "textas-d8445",
+    "storage_bucket": "textas-d8445.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335340138752:android:3e3c9d85c62325084243e5",
+        "android_client_info": {
+          "package_name": "com.example.textas_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335340138752-lj9tfpr9ovmurl2hnojltode6jrmagil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKOspmUGDbeJeaML5fxkSIPRATd34o_bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335340138752-lj9tfpr9ovmurl2hnojltode6jrmagil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
