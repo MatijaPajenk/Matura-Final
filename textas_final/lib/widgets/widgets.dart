@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 AppBar appBarMain() {
   return AppBar(
-    title: Image.asset(
-      "assets/images/logo_with_text.png",
-      height: 45,
+    title: Center(
+      child: Image.asset(
+        "assets/images/text_only.png",
+        height: 45,
+      ),
     ),
-    toolbarHeight: 50,
+    toolbarHeight: 70,
   );
 }

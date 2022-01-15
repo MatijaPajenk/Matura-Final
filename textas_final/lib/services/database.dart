@@ -34,12 +34,12 @@ class DatabaseMethods {
   }
 
   createChatRoom(String chatRoomId, chatRoomInfoMap) async {
-    final snapShot = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection("chatRooms")
         .doc(chatRoomId)
         .get();
 
-    if (snapShot.exists) {
+    if (snapshot.exists) {
       //chatRoom already exists
       return true;
     } else {
@@ -63,7 +63,7 @@ class DatabaseMethods {
     String? myName = await SharedPreferencesHelper().getUserName();
     return FirebaseFirestore.instance
         .collection("chatRooms")
-        .orderBy("lastMessageTs", descending: true)
+        .orderBy("lastMessageSentTs", descending: true)
         .where("users", arrayContains: myName)
         .snapshots();
   }

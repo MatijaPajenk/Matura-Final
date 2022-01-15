@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
 
   //fix here
   // ignore: prefer_typing_uninitialized_variables
-  Stream? usersStream, chatRoomsStream;
+  Stream<QuerySnapshot>? usersStream, chatRoomsStream;
 
   TextEditingController seacrhUsernameEditingController =
       TextEditingController();
@@ -53,14 +53,14 @@ class _HomeState extends State<Home> {
   }
 
   Widget chatRoomsList() {
-    return StreamBuilder(
+    return StreamBuilder<QuerySnapshot>(
       stream: chatRoomsStream,
       // initialData: initialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
                 shrinkWrap: true,
-                itemCount: snapshot.data.docs.length,
+                itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
                   return ChatRoomListTile(
@@ -224,7 +224,7 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            isSearching ? searchUsersList() : chatRoomsList()
+            isSearching ? searchUsersList() : chatRoomsList(),
           ],
         ),
       ),
@@ -250,6 +250,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     //print("somethin ${querySnapshot.docs[0].id}");
     name = "${querySnapshot.docs[0]["name"]}";
     profilePicUrl = "${querySnapshot.docs[0]["profileUrl"]}";
+
     setState(() {});
   }
 
@@ -270,29 +271,36 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                profilePicUrl,
-                height: 40,
-                width: 40,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(fontSize: 16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.orange.shade400,
+          ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
+                  profilePicUrl,
+                  height: 40,
+                  width: 40,
                 ),
-                const SizedBox(height: 3),
-                Text(widget.lastMessage)
-              ],
-            )
-          ],
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(widget.lastMessage)
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
