@@ -1,5 +1,4 @@
 // ignore_for_file: use_key_in_widget_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +29,9 @@ class _HomeState extends State<Home> {
 
   getMyInfoFromSharedPreferences() async {
     myName = await SharedPreferencesHelper().getDisplayName();
-    myProfilePic = (await SharedPreferencesHelper().getUserProfile())!;
-    myUserName = (await SharedPreferencesHelper().getUserName())!;
-    myEmail = (await SharedPreferencesHelper().getUserEmail())!;
+    myProfilePic = await SharedPreferencesHelper().getUserProfile();
+    myUserName = await SharedPreferencesHelper().getUserName();
+    myEmail = await SharedPreferencesHelper().getUserEmail();
     setState(() {});
   }
 
@@ -60,7 +59,7 @@ class _HomeState extends State<Home> {
         return snapshot.hasData
             ? ListView.builder(
                 shrinkWrap: true,
-                itemCount: 1,
+                itemCount: snapshot.data.docs.length,
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
                   return ChatRoomListTile(
@@ -91,7 +90,7 @@ class _HomeState extends State<Home> {
                 builder: (context) => ChatScreen(username, name)));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Row(
           children: [
             ClipRRect(
@@ -103,9 +102,11 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(width: 12),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(name), Text(email)])
+            Expanded(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Text(name), Text(email)]),
+            )
           ],
         ),
       ),
@@ -164,8 +165,8 @@ class _HomeState extends State<Home> {
           InkWell(
             onTap: () {
               AuthMethods().signOut().then((val) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const SignIn()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
               });
             },
             child: Container(

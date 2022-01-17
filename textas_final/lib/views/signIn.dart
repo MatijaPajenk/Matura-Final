@@ -6,7 +6,7 @@ import 'package:textas_final/services/auth.dart';
 import 'package:textas_final/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  SignIn({Key? key}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
