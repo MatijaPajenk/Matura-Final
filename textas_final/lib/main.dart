@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return const Home();
           } else {
-            return SignIn();
+            return const SignIn();
           }
         },
       ),

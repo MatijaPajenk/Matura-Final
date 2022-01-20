@@ -123,6 +123,8 @@ class _HomeState extends State<Home> {
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
+
+                  //return Text(documentSnapshot["profileUrl"].toString());
                   return searchListUserTile(
                       profileUrl: documentSnapshot["profileUrl"],
                       name: documentSnapshot["name"],
@@ -156,6 +158,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/text_only.png",
@@ -165,8 +168,8 @@ class _HomeState extends State<Home> {
           InkWell(
             onTap: () {
               AuthMethods().signOut().then((val) {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const SignIn()));
               });
             },
             child: Container(
@@ -200,8 +203,8 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: Colors.grey,
-                            width: 1,
+                            color: Colors.black,
+                            width: 1.5,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(24)),
                     child: Row(
@@ -210,7 +213,9 @@ class _HomeState extends State<Home> {
                             child: TextField(
                           controller: seacrhUsernameEditingController,
                           decoration: const InputDecoration(
-                              border: InputBorder.none, hintText: "username"),
+                            border: InputBorder.none,
+                            hintText: "username",
+                          ),
                         )),
                         GestureDetector(
                             onTap: () {
@@ -271,12 +276,12 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                 builder: (context) => ChatScreen(username, name)));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.orange.shade400,
+            borderRadius: BorderRadius.circular(5),
+            color: const Color(0xffeeeeee),
           ),
           child: Row(
             children: [
