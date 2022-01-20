@@ -215,6 +215,9 @@ class _HomeState extends State<Home> {
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "username",
+                            hintStyle: TextStyle(
+                              color: Colors.white60,
+                            ),
                           ),
                         )),
                         GestureDetector(
