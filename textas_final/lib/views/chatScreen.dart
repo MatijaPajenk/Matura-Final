@@ -1,5 +1,4 @@
 // ignore_for_file: file_names, unnecessary_string_escapes, avoid_unnecessary_containers, use_key_in_widget_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
@@ -38,7 +37,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   addMessage(bool sendClicked) {
     if (messageTextEditingController.text != "") {
-      String message = messageTextEditingController.text;
+      String message =
+          sendClicked ? messageTextEditingController.text : "Typing...";
       var lastMessageTs = DateTime.now();
 
       Map<String, dynamic> messageInfoMap = {
@@ -94,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ? const Radius.circular(24)
                       : const Radius.circular(0),
                 ),
-                color: sendByMe ? Colors.blue : const Color(0xFF858585),
+                color: sendByMe ? Color(0xffdd4a11) : const Color(0xFF747474),
               ),
               padding: const EdgeInsets.all(16),
               child: Text(
@@ -150,6 +150,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Text(widget.name),
       ),
@@ -168,6 +169,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     Expanded(
                         child: TextField(
                       controller: messageTextEditingController,
+                      onTap: () {
+                        Container(
+                          child: const Text('mess'),
+                        );
+                      },
                       onChanged: (value) {
                         addMessage(false);
                       },

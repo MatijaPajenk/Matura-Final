@@ -93,12 +93,14 @@ class _HomeState extends State<Home> {
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(40),
-              child: Image.network(
-                profileUrl,
-                height: 40,
-                width: 40,
+            Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: Image.network(
+                  profileUrl,
+                  height: 40,
+                  width: 40,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -210,16 +212,17 @@ class _HomeState extends State<Home> {
                     child: Row(
                       children: [
                         Expanded(
-                            child: TextField(
-                          controller: seacrhUsernameEditingController,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "username",
-                            hintStyle: TextStyle(
-                              color: Colors.white60,
+                          child: TextField(
+                            controller: seacrhUsernameEditingController,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "username",
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        )),
+                        ),
                         GestureDetector(
                             onTap: () {
                               if (seacrhUsernameEditingController.text != "") {
@@ -283,9 +286,9 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: const Color(0xffeeeeee),
-          ),
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.deepOrange //Color(0xffdd4a11),
+              ),
           child: Row(
             children: [
               ClipRRect(
@@ -302,10 +305,16 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(fontSize: 16),
+                    style:
+                        const TextStyle(fontSize: 16, color: Color(0xffffffff)),
                   ),
                   const SizedBox(height: 3),
-                  Text(widget.lastMessage)
+                  Text(
+                    widget.lastMessage,
+                    style: const TextStyle(
+                      color: Color(0xffffffff),
+                    ),
+                  )
                 ],
               )
             ],
