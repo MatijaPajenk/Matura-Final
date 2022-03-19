@@ -37,42 +37,42 @@ class _ChatScreenState extends State<ChatScreen> {
 
   addMessage(bool sendClicked) {
     if (messageTextEditingController.text != "") {
-      String message =
-          sendClicked ? messageTextEditingController.text : "Typing...";
-      var lastMessageTs = DateTime.now();
+      String message = messageTextEditingController.text;
 
-      Map<String, dynamic> messageInfoMap = {
-        "message": message,
-        "sendBy": myUserName,
-        "ts": lastMessageTs,
-        "imgUrl": myProfilePic
-      };
+      if (sendClicked) {
+        var lastMessageTs = DateTime.now();
 
-      //messageId
-      if (messageId == "") {
-        messageId = randomAlphaNumeric(12);
-      }
-
-      DatabaseMethods()
-          .addMessage(chatRoomId, messageId, messageInfoMap)
-          .then((value) {
-        Map<String, dynamic> lastMessageInfoMap = {
-          "lastMessage": message,
-          "lastMessageSendBy": myUserName,
-          "lastMessageSentTs": lastMessageTs
+        Map<String, dynamic> messageInfoMap = {
+          "message": message,
+          "sendBy": myUserName,
+          "ts": lastMessageTs,
+          "imgUrl": myProfilePic
         };
 
-        DatabaseMethods().updateLstMessageSend(chatRoomId, lastMessageInfoMap);
+        //messageId
+        if (messageId == "") {
+          messageId = randomAlphaNumeric(12);
+        }
 
-        if (sendClicked) {
+        DatabaseMethods()
+            .addMessage(chatRoomId, messageId, messageInfoMap)
+            .then((value) {
+          Map<String, dynamic> lastMessageInfoMap = {
+            "lastMessage": message,
+            "lastMessageSendBy": myUserName,
+            "lastMessageSentTs": lastMessageTs
+          };
+
+          DatabaseMethods()
+              .updateLstMessageSend(chatRoomId, lastMessageInfoMap);
+
           //remove the text in the message input field
           messageTextEditingController.text = "";
-
           //make the messageId blank to get regenerated on next text message
           messageId = "";
-        }
-      });
-    }
+        });
+      }
+    } else {}
   }
 
   Widget chatMessageTile(String message, bool sendByMe) {
@@ -94,7 +94,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       ? const Radius.circular(24)
                       : const Radius.circular(0),
                 ),
-                color: sendByMe ? Color(0xffdd4a11) : const Color(0xFF747474),
+                color: sendByMe
+                    ? const Color(0xffdd4a11)
+                    : const Color(0xFF747474),
               ),
               padding: const EdgeInsets.all(16),
               child: Text(
@@ -166,14 +168,22 @@ class _ChatScreenState extends State<ChatScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        //TODO add image file picker
+                        messageTextEditingController.text = "Hello world";
+                      },
+                      child: const Icon(
+                        Icons.add_photo_alternate_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Expanded(
                         child: TextField(
                       controller: messageTextEditingController,
-                      onTap: () {
-                        Container(
-                          child: const Text('mess'),
-                        );
-                      },
                       onChanged: (value) {
                         addMessage(false);
                       },

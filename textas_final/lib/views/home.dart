@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:textas_final/heleperFunctions/sharedPrefrencesHelper.dart';
 import 'package:textas_final/services/auth.dart';
 import 'package:textas_final/services/database.dart';
@@ -91,10 +92,15 @@ class _HomeState extends State<Home> {
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        child: Row(
-          children: [
-            Container(
-              child: ClipRRect(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.deepOrange //Color(0xffdd4a11),
+              ),
+          child: Row(
+            children: [
+              ClipRRect(
                 borderRadius: BorderRadius.circular(40),
                 child: Image.network(
                   profileUrl,
@@ -102,14 +108,30 @@ class _HomeState extends State<Home> {
                   width: 40,
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text(name), Text(email)]),
-            )
-          ],
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                    Text(
+                      email,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xffffffff),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -125,13 +147,26 @@ class _HomeState extends State<Home> {
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
-
-                  //return Text(documentSnapshot["profileUrl"].toString());
-                  return searchListUserTile(
-                      profileUrl: documentSnapshot["profileUrl"],
-                      name: documentSnapshot["name"],
-                      username: documentSnapshot["userName"],
-                      email: documentSnapshot["email"]);
+                  try {
+                    //return Text(documentSnapshot["profileUrl"].toString());
+                    return searchListUserTile(
+                        profileUrl: documentSnapshot["profileUrl"],
+                        name: documentSnapshot["name"],
+                        username: documentSnapshot["userName"],
+                        email: documentSnapshot["email"]);
+                  } catch (e) {
+                    return Container(
+                        // margin: const EdgeInsets.symmetric(
+                        //     vertical: 8, horizontal: 16),
+                        // child: const Text(
+                        //   'Uporabnik ne obstaja',
+                        //   style: TextStyle(
+                        //     color: Colors.black,
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
+                        );
+                  }
                 },
               )
             : const Center(
@@ -170,8 +205,11 @@ class _HomeState extends State<Home> {
           InkWell(
             onTap: () {
               AuthMethods().signOut().then((val) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const SignIn()));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignIn()),
+                  (Route<dynamic> route) => false,
+                );
               });
             },
             child: Container(
@@ -192,7 +230,11 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           isSearching = false;
                           seacrhUsernameEditingController.text = "";
-                          setState(() {});
+                          //setState(() {});
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Home()));
                         },
                         child: const Padding(
                             padding: EdgeInsets.only(right: 12),
