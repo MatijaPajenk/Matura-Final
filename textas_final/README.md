@@ -1,16 +1,17 @@
-# textas_final
+# TEXTAS
 
-A new Flutter project.
+A new Flutter project for my finals project.
 
-## Getting Started
+## Idea
 
-This project is a starting point for a Flutter application.
+The idea came after the name, which is quite unusual.
+After that I started researching possible options for mobile app development and discovered flutter.
+Whren I decided to use flutter I found multiple helpful videos on YouTube and followed their instructions.
 
-A few resources to get you started if this is your first Flutter project:
+## Process
+At the start I didn't know anything about flutter, but being the straightforward framework it is, it wasn't hard to learn.
+Throughout the process I have familiarized me with how it works and aquired a new skill while doing it.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Problems
+I faced multiple problems, some easily resolved, others requiring to change parts of the application.
+In the end I had to leave out some functionalities 
