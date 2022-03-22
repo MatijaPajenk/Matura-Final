@@ -317,6 +317,32 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: const Text("Delete conversation?"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        DatabaseMethods().deleteChatRoom(widget.chatRoomId);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()),
+                            (route) => false);
+                      },
+                      child: const Text("DELETE")),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("CANCLE"))
+                ],
+              );
+            });
+      },
       onTap: () {
         Navigator.push(
             context,

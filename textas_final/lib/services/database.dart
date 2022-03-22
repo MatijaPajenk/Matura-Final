@@ -26,6 +26,15 @@ class DatabaseMethods {
         .set(messageInfoMap);
   }
 
+  Future deleteMessage(String chatRoomId, String messageId) async {
+    FirebaseFirestore.instance
+        .collection('chatRooms')
+        .doc(chatRoomId)
+        .collection('chats')
+        .doc(messageId)
+        .delete();
+  }
+
   updateLstMessageSend(String chatRoomId, lastMessageInfoMap) {
     return FirebaseFirestore.instance
         .collection("chatRooms")
@@ -48,6 +57,14 @@ class DatabaseMethods {
           .doc(chatRoomId)
           .set(chatRoomInfoMap);
     }
+  }
+
+  //TODO delete all messages with chat room
+  deleteChatRoom(String chatRoomId) async {
+    await FirebaseFirestore.instance
+        .collection('chatRooms')
+        .doc(chatRoomId)
+        .delete();
   }
 
   Future<Stream<QuerySnapshot>> getChatRoomMessages(chatRoomId) async {

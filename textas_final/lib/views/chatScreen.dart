@@ -1,9 +1,12 @@
 // ignore_for_file: file_names, unnecessary_string_escapes, avoid_unnecessary_containers, use_key_in_widget_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 import 'package:textas_final/heleperFunctions/sharedPrefrencesHelper.dart';
 import 'package:textas_final/services/database.dart';
+
+var _chatRoomId = '';
 
 class ChatScreen extends StatefulWidget {
   final String chatWithUsername, name;
@@ -24,8 +27,8 @@ class _ChatScreenState extends State<ChatScreen> {
     myProfilePic = await SharedPreferencesHelper().getUserProfile() as String;
     myUserName = await SharedPreferencesHelper().getUserName() as String;
     myEmail = await SharedPreferencesHelper().getUserEmail() as String;
-
     chatRoomId = getChatRoomIdByUsernames(widget.chatWithUsername, myUserName);
+    _chatRoomId = chatRoomId;
   }
 
   getChatRoomIdByUsernames(String a, String b) {
@@ -75,34 +78,67 @@ class _ChatScreenState extends State<ChatScreen> {
     } else {}
   }
 
-  Widget chatMessageTile(String message, bool sendByMe) {
+  Widget chatMessageTile(String message, bool sendByMe, String messageId) {
     return Row(
       mainAxisAlignment:
           sendByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
-          child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(24),
-                  bottomRight: sendByMe
-                      ? const Radius.circular(0)
-                      : const Radius.circular(24),
-                  topRight: const Radius.circular(24),
-                  bottomLeft: sendByMe
-                      ? const Radius.circular(24)
-                      : const Radius.circular(0),
+          child: GestureDetector(
+            onLongPress: () {
+              if (sendByMe) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: const Text('Delete message?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                DatabaseMethods()
+                                    .deleteMessage(_chatRoomId, messageId);
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChatScreen(
+                                            widget.chatWithUsername,
+                                            widget.name)),
+                                    (route) => false);
+                              },
+                              child: const Text('DELETE')),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('CANCEL'))
+                        ],
+                      );
+                    });
+              }
+            },
+            child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(24),
+                    bottomRight: sendByMe
+                        ? const Radius.circular(0)
+                        : const Radius.circular(24),
+                    topRight: const Radius.circular(24),
+                    bottomLeft: sendByMe
+                        ? const Radius.circular(24)
+                        : const Radius.circular(0),
+                  ),
+                  color: sendByMe
+                      ? const Color(0xffdd4a11)
+                      : const Color(0xFF747474),
                 ),
-                color: sendByMe
-                    ? const Color(0xffdd4a11)
-                    : const Color(0xFF747474),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-              )),
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  message,
+                  style: const TextStyle(color: Colors.white),
+                )),
+          ),
         ),
       ],
     );
@@ -123,8 +159,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot =
                       snapshot.data!.docs[index];
-                  return chatMessageTile(documentSnapshot["message"],
-                      myUserName == documentSnapshot["sendBy"]);
+
+                  return chatMessageTile(
+                      documentSnapshot["message"],
+                      myUserName == documentSnapshot["sendBy"],
+                      documentSnapshot.id);
                 })
             : const Center(
                 child: CircularProgressIndicator(),
