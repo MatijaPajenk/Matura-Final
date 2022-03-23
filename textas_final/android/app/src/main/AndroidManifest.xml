@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.textas_final">
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />   <application
-        android:label="textas_final"
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />   
+    <application
+        android:label="TEXTAS"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

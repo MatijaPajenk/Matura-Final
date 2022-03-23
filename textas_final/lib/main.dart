@@ -11,6 +11,7 @@ void main() async {
   runApp(const MyApp());
 }
 
+//TODO change theme button
 //TODO add notifications
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

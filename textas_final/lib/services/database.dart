@@ -59,7 +59,6 @@ class DatabaseMethods {
     }
   }
 
-  //TODO delete all messages with chat room
   deleteChatRoom(String chatRoomId) async {
     await FirebaseFirestore.instance
         .collection('chatRooms')

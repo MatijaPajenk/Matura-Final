@@ -322,7 +322,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: const Text("Delete conversation?"),
+                content: const Text("Archive conversation?"),
                 actions: [
                   TextButton(
                       onPressed: () {
@@ -333,12 +333,12 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                                 builder: (context) => const Home()),
                             (route) => false);
                       },
-                      child: const Text("DELETE")),
+                      child: const Text("ARCHIVE")),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("CANCLE"))
+                      child: const Text("CANCEL"))
                 ],
               );
             });
