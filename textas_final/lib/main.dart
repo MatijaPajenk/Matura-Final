@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:textas_final/services/auth.dart';
 import 'package:textas_final/views/home.dart';
 import 'package:textas_final/views/signIn.dart';
+import 'package:textas_final/widgets/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +12,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-//TODO change theme button
 //TODO add notifications
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
+      themeMode: ThemeMode.system,
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
       home: FutureBuilder(
         future: AuthMethods().getCurrentUser(),
         builder: (context, AsyncSnapshot<User?> snapshot) {

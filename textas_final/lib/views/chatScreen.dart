@@ -97,13 +97,13 @@ class _ChatScreenState extends State<ChatScreen> {
                               onPressed: () {
                                 DatabaseMethods()
                                     .deleteMessage(_chatRoomId, messageId);
-                                Navigator.pushAndRemoveUntil(
+                                Navigator.pop(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ChatScreen(
                                             widget.chatWithUsername,
-                                            widget.name)),
-                                    (route) => false);
+                                            widget.name)));
+                                // (route) => false);
                               },
                               child: const Text('DELETE')),
                           TextButton(
@@ -130,7 +130,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         : const Radius.circular(0),
                   ),
                   color: sendByMe
-                      ? const Color(0xffdd4a11)
+                      ? const Color(0xFFE9632F)
                       : const Color(0xFF747474),
                 ),
                 padding: const EdgeInsets.all(16),
@@ -191,7 +191,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfffec47f),
+      // backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Text(widget.name),
       ),

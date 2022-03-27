@@ -95,9 +95,12 @@ class _HomeState extends State<Home> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.deepOrange //Color(0xffdd4a11),
-              ),
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).scaffoldBackgroundColor ==
+                    const Color(0xfffec47f)
+                ? const Color(0xFFE9632F)
+                : Colors.grey.shade600,
+          ),
           child: Row(
             children: [
               ClipRRect(
@@ -115,16 +118,22 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
-                        color: Color(0xffffffff),
+                        color: Theme.of(context).scaffoldBackgroundColor ==
+                                const Color(0xfffec47f)
+                            ? const Color(0xffffffff)
+                            : Colors.white,
                       ),
                     ),
                     Text(
                       email,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xffffffff),
+                        color: Theme.of(context).scaffoldBackgroundColor ==
+                                const Color(0xfffec47f)
+                            ? const Color(0xffffffff)
+                            : Colors.white70,
                       ),
                     )
                   ],
@@ -195,11 +204,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfffec47f),
+      // backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/text_only.png",
           height: 40,
+          color: Theme.of(context).scaffoldBackgroundColor ==
+                  const Color(0xfffec47f)
+              ? Colors.black
+              : Colors.white,
         ),
         actions: [
           InkWell(
@@ -247,7 +260,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: Colors.black,
+                            // color: Colors.black,
                             width: 1.5,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(24)),
@@ -260,8 +273,8 @@ class _HomeState extends State<Home> {
                               border: InputBorder.none,
                               hintText: "username",
                               hintStyle: TextStyle(
-                                color: Colors.black,
-                              ),
+                                  // color: Colors.black,
+                                  ),
                             ),
                           ),
                         ),
@@ -354,9 +367,12 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.deepOrange //Color(0xffdd4a11),
-              ),
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).scaffoldBackgroundColor ==
+                    const Color(0xfffec47f)
+                ? const Color(0xFFE9632F)
+                : Colors.grey.shade600,
+          ),
           child: Row(
             children: [
               ClipRRect(
@@ -373,14 +389,21 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                 children: [
                   Text(
                     name,
-                    style:
-                        const TextStyle(fontSize: 16, color: Color(0xffffffff)),
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor ==
+                              const Color(0xfffec47f)
+                          ? const Color(0xffffffff)
+                          : Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     widget.lastMessage,
-                    style: const TextStyle(
-                      color: Color(0xffffffff),
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor ==
+                              const Color(0xfffec47f)
+                          ? const Color(0xffffffff)
+                          : Colors.white70,
                     ),
                   )
                 ],
