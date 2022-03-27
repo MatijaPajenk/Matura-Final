@@ -52,7 +52,6 @@ class _ChatScreenState extends State<ChatScreen> {
           "imgUrl": myProfilePic
         };
 
-        //messageId
         if (messageId == "") {
           messageId = randomAlphaNumeric(12);
         }
@@ -98,12 +97,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                 DatabaseMethods()
                                     .deleteMessage(_chatRoomId, messageId);
                                 Navigator.pop(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ChatScreen(
-                                            widget.chatWithUsername,
-                                            widget.name)));
-                                // (route) => false);
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                        widget.chatWithUsername, widget.name),
+                                  ),
+                                );
                               },
                               child: const Text('DELETE')),
                           TextButton(
@@ -191,7 +190,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Text(widget.name),
       ),

@@ -33,10 +33,6 @@ class _SignInState extends State<SignIn> {
           margin: const EdgeInsets.symmetric(horizontal: 0),
           child: ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-                // primary: ThemeMode.system == ThemeMode.light
-                //     ? Colors.red
-                //     : Colors.black54,
-                // onPrimary: Colors.white,
                 minimumSize: Size(MediaQuery.of(context).size.width / 2, 50)),
             icon: const FaIcon(FontAwesomeIcons.google),
             label: const Text('Sign In With Google'),

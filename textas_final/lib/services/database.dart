@@ -49,7 +49,6 @@ class DatabaseMethods {
         .get();
 
     if (snapshot.exists) {
-      //chatRoom already exists
       return true;
     } else {
       return FirebaseFirestore.instance

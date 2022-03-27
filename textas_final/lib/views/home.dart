@@ -19,7 +19,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isSearching = false;
 
-  //fix here
   // ignore: prefer_typing_uninitialized_variables
   Stream<QuerySnapshot>? usersStream, chatRoomsStream;
 
@@ -55,7 +54,6 @@ class _HomeState extends State<Home> {
   Widget chatRoomsList() {
     return StreamBuilder<QuerySnapshot>(
       stream: chatRoomsStream,
-      // initialData: initialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
@@ -157,24 +155,13 @@ class _HomeState extends State<Home> {
                 itemBuilder: (BuildContext context, int index) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
                   try {
-                    //return Text(documentSnapshot["profileUrl"].toString());
                     return searchListUserTile(
                         profileUrl: documentSnapshot["profileUrl"],
                         name: documentSnapshot["name"],
                         username: documentSnapshot["userName"],
                         email: documentSnapshot["email"]);
                   } catch (e) {
-                    return Container(
-                        // margin: const EdgeInsets.symmetric(
-                        //     vertical: 8, horizontal: 16),
-                        // child: const Text(
-                        //   'Uporabnik ne obstaja',
-                        //   style: TextStyle(
-                        //     color: Colors.black,
-                        //     fontSize: 12,
-                        //   ),
-                        // ),
-                        );
+                    return Container();
                   }
                 },
               )
@@ -204,7 +191,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xfffec47f),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/text_only.png",
@@ -243,7 +229,6 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           isSearching = false;
                           seacrhUsernameEditingController.text = "";
-                          //setState(() {});
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -259,10 +244,8 @@ class _HomeState extends State<Home> {
                     margin: const EdgeInsets.symmetric(vertical: 16),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                        border: Border.all(
-                            // color: Colors.black,
-                            width: 1.5,
-                            style: BorderStyle.solid),
+                        border:
+                            Border.all(width: 1.5, style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(24)),
                     child: Row(
                       children: [
@@ -272,9 +255,6 @@ class _HomeState extends State<Home> {
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "username",
-                              hintStyle: TextStyle(
-                                  // color: Colors.black,
-                                  ),
                             ),
                           ),
                         ),
@@ -314,7 +294,6 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     username =
         widget.chatRoomId.replaceAll(widget.myUserName, "").replaceAll("_", "");
     QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
-    //print("somethin ${querySnapshot.docs[0].id}");
     name = "${querySnapshot.docs[0]["name"]}";
     profilePicUrl = "${querySnapshot.docs[0]["profileUrl"]}";
 
