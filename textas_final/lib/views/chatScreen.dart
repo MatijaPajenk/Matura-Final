@@ -205,19 +205,19 @@ class _ChatScreenState extends State<ChatScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        //TODO add image file picker
-                        messageTextEditingController.text = "Hello world";
-                      },
-                      child: const Icon(
-                        Icons.add_photo_alternate_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     //TODO add image file picker
+                    //     messageTextEditingController.text = "Hello world";
+                    //   },
+                    //   child: const Icon(
+                    //     Icons.add_photo_alternate_rounded,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   width: 8,
+                    // ),
                     Expanded(
                         child: TextField(
                       controller: messageTextEditingController,
