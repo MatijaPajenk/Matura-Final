@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, unnecessary_string_escapes, avoid_unnecessary_containers, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 import 'package:textas_final/heleperFunctions/sharedPrefrencesHelper.dart';
@@ -206,35 +206,35 @@ class _ChatScreenState extends State<ChatScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () async {
-                        //TODO add image file picker
-                        // messageTextEditingController.text = "Hello world";
-                        final results = await FilePicker.platform.pickFiles(
-                          allowMultiple: false,
-                          type: FileType.custom,
-                          allowedExtensions: ['png', 'jpg'],
-                        );
+                    // GestureDetector(
+                    //   onTap: () async {
+                    //     //TODO add image file picker
+                    //     // messageTextEditingController.text = "Hello world";
+                    //     final results = await FilePicker.platform.pickFiles(
+                    //       allowMultiple: false,
+                    //       type: FileType.custom,
+                    //       allowedExtensions: ['png', 'jpg'],
+                    //     );
 
-                        if (results == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('No file selected'),
-                            ),
-                          );
-                          return;
-                        }
+                    //     if (results == null) {
+                    //       ScaffoldMessenger.of(context).showSnackBar(
+                    //         const SnackBar(
+                    //           content: Text('No file selected'),
+                    //         ),
+                    //       );
+                    //       return;
+                    //     }
 
-                        final filePath = results.files.single.path!;
-                        final fileName = results.files.single.name;
+                    //     final filePath = results.files.single.path!;
+                    //     final fileName = results.files.single.name;
 
-                        print('$fileName => $filePath');
-                      },
-                      child: const Icon(
-                        Icons.add_photo_alternate_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
+                    //     print('$fileName => $filePath');
+                    //   },
+                    //   child: const Icon(
+                    //     Icons.add_photo_alternate_rounded,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
                     const SizedBox(
                       width: 8,
                     ),
