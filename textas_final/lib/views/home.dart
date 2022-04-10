@@ -1,8 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:textas_final/heleperFunctions/sharedPrefrencesHelper.dart';
 import 'package:textas_final/services/auth.dart';
 import 'package:textas_final/services/database.dart';
@@ -235,8 +233,9 @@ class _HomeState extends State<Home> {
                                   builder: (context) => const Home()));
                         },
                         child: const Padding(
-                            padding: EdgeInsets.only(right: 12),
-                            child: Icon(Icons.arrow_back)),
+                          padding: EdgeInsets.only(right: 12),
+                          child: Icon(Icons.arrow_back),
+                        ),
                       )
                     : Container(),
                 Expanded(
@@ -244,9 +243,9 @@ class _HomeState extends State<Home> {
                     margin: const EdgeInsets.symmetric(vertical: 16),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 1.5, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(24)),
+                      border: Border.all(width: 1.5, style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -259,12 +258,13 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         GestureDetector(
-                            onTap: () {
-                              if (seacrhUsernameEditingController.text != "") {
-                                onSearchBtnClick();
-                              }
-                            },
-                            child: const Icon(Icons.search))
+                          onTap: () {
+                            if (seacrhUsernameEditingController.text != "") {
+                              onSearchBtnClick();
+                            }
+                          },
+                          child: const Icon(Icons.search),
+                        )
                       ],
                     ),
                   ),
@@ -317,20 +317,21 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
                 content: const Text("Archive conversation?"),
                 actions: [
                   TextButton(
-                      onPressed: () {
-                        DatabaseMethods().deleteChatRoom(widget.chatRoomId);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (route) => false);
-                      },
-                      child: const Text("ARCHIVE")),
+                    onPressed: () {
+                      DatabaseMethods().deleteChatRoom(widget.chatRoomId);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Home()),
+                          (route) => false);
+                    },
+                    child: const Text("ARCHIVE"),
+                  ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("CANCEL"))
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("CANCEL"),
+                  )
                 ],
               );
             });

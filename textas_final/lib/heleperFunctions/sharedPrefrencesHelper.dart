@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
@@ -9,7 +8,6 @@ class SharedPreferencesHelper {
   static String userEmailKey = "USEREMAILKEY";
   static String userProfileKey = "USERPROFILEKEY";
 
-  //save data
   Future<bool> saveUserName(String getUserName) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.setString(userNameKey, getUserName);
@@ -35,7 +33,6 @@ class SharedPreferencesHelper {
     return sharedPreferences.setString(userIdKey, getUserId);
   }
 
-  //get data
   Future<String?> getUserName() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(userNameKey);

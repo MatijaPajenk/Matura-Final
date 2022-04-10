@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, unnecessary_string_escapes, avoid_unnecessary_containers, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 import 'package:textas_final/heleperFunctions/sharedPrefrencesHelper.dart';
@@ -20,7 +19,6 @@ class _ChatScreenState extends State<ChatScreen> {
   String chatRoomId = "", messageId = "";
   String myName = "", myProfilePic = "", myUserName = "", myEmail = "";
   TextEditingController messageTextEditingController = TextEditingController();
-
   Stream? messageStream;
 
   getMyInfoFromSharedPreferences() async {
@@ -69,9 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
           DatabaseMethods()
               .updateLstMessageSend(chatRoomId, lastMessageInfoMap);
 
-          //remove the text in the message input field
           messageTextEditingController.text = "";
-          //make the messageId blank to get regenerated on next text message
           messageId = "";
         });
       }
@@ -94,50 +90,53 @@ class _ChatScreenState extends State<ChatScreen> {
                         content: const Text('Delete message?'),
                         actions: [
                           TextButton(
-                              onPressed: () {
-                                DatabaseMethods()
-                                    .deleteMessage(_chatRoomId, messageId);
-                                Navigator.pop(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatScreen(
-                                        widget.chatWithUsername, widget.name),
-                                  ),
-                                );
-                              },
-                              child: const Text('DELETE')),
+                            onPressed: () {
+                              DatabaseMethods()
+                                  .deleteMessage(_chatRoomId, messageId);
+                              Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatScreen(
+                                      widget.chatWithUsername, widget.name),
+                                ),
+                              );
+                            },
+                            child: const Text('DELETE'),
+                          ),
                           TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('CANCEL'))
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('CANCEL'),
+                          )
                         ],
                       );
                     });
               }
             },
             child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(24),
-                    bottomRight: sendByMe
-                        ? const Radius.circular(0)
-                        : const Radius.circular(24),
-                    topRight: const Radius.circular(24),
-                    bottomLeft: sendByMe
-                        ? const Radius.circular(24)
-                        : const Radius.circular(0),
-                  ),
-                  color: sendByMe
-                      ? const Color(0xFFE9632F)
-                      : const Color(0xFF747474),
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(24),
+                  bottomRight: sendByMe
+                      ? const Radius.circular(0)
+                      : const Radius.circular(24),
+                  topRight: const Radius.circular(24),
+                  bottomLeft: sendByMe
+                      ? const Radius.circular(24)
+                      : const Radius.circular(0),
                 ),
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  message,
-                  style: const TextStyle(color: Colors.white),
-                )),
+                color: sendByMe
+                    ? const Color(0xFFE9632F)
+                    : const Color(0xFF747474),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                message,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
           ),
         ),
       ],
@@ -206,54 +205,26 @@ class _ChatScreenState extends State<ChatScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
-                    // GestureDetector(
-                    //   onTap: () async {
-                    //     //TODO add image file picker
-                    //     // messageTextEditingController.text = "Hello world";
-                    //     final results = await FilePicker.platform.pickFiles(
-                    //       allowMultiple: false,
-                    //       type: FileType.custom,
-                    //       allowedExtensions: ['png', 'jpg'],
-                    //     );
-
-                    //     if (results == null) {
-                    //       ScaffoldMessenger.of(context).showSnackBar(
-                    //         const SnackBar(
-                    //           content: Text('No file selected'),
-                    //         ),
-                    //       );
-                    //       return;
-                    //     }
-
-                    //     final filePath = results.files.single.path!;
-                    //     final fileName = results.files.single.name;
-
-                    //     print('$fileName => $filePath');
-                    //   },
-                    //   child: const Icon(
-                    //     Icons.add_photo_alternate_rounded,
-                    //     color: Colors.white,
-                    //   ),
-                    // ),
                     const SizedBox(
                       width: 8,
                     ),
                     Expanded(
-                        child: TextField(
-                      controller: messageTextEditingController,
-                      onChanged: (value) {
-                        addMessage(false);
-                      },
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "type a message",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white.withOpacity(0.6),
+                      child: TextField(
+                        controller: messageTextEditingController,
+                        onChanged: (value) {
+                          addMessage(false);
+                        },
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "type a message",
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withOpacity(0.6),
+                          ),
                         ),
                       ),
-                    )),
+                    ),
                     GestureDetector(
                       onTap: () {
                         addMessage(true);
